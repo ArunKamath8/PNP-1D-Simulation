@@ -8,8 +8,8 @@ fig, ax = subplots(figsize=(7,7))
 
 #defining parameters
 num_spaces = 1000
-num__time_steps = 10^6
-dt = 1 / 10^6
+num_time_steps = 10^6
+dt = 1 / num_time_steps
 grid = collect(LinRange(-1, 1, num_spaces+1))
 dx = (2 / (num_spaces))
 filename="no_reaction"
@@ -26,7 +26,7 @@ Cb = 0.150
 
 parameters_dict = Dict(
     "num_spaces" => num_spaces, 
-    "num__time_steps" => num__time_steps, 
+    "num_time_steps" => num_time_steps, 
     "dt" => dt, 
     "epsilon" => epsilon, 
     "delta" => delta, 
@@ -85,7 +85,7 @@ dc = collect(LinRange(-1, 1, num_spaces+1))
 drho = collect(LinRange(-1, 1, num_spaces+1))
 dphi = collect(LinRange(-1, 1, num_spaces+1))
 
-for time in 1:num__time_steps
+for time in 1:num_time_steps
 #enforce boundary conditions
     #poissons equations for potential
     soln_vector = (-1 .* rho[2:(num_spaces)] ./ epsilon^2 .* dx^2)
@@ -135,7 +135,7 @@ for time in 1:num__time_steps
     c[2:num_spaces] .+= (dt .* dcdt[2:num_spaces])
     rho[2:num_spaces] .+= (dt .* drhodt[2:num_spaces])
 
-    if time in [num__time_steps/5 2*num__time_steps/5 3*num__time_steps/5 4*num__time_steps/5 num__time_steps] 
+    if time in [num_time_steps/5 2*num_time_steps/5 3*num_time_steps/5 4*num_time_steps/5 num_time_steps] 
         #plt.plot(grid, rho, label="rho")
         plt.scatter(grid, phi, label="phi @ " * string(time*dt), s=0.5)
         #plt.plot(grid, c+rho, label="cation") 
